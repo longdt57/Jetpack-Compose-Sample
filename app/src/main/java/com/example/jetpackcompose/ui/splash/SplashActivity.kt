@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.jetpackcompose.MainActivity
+import com.example.jetpackcompose.ui.main.MainActivity
 
 class SplashActivity : ComponentActivity() {
 
