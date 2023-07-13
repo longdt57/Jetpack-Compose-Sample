@@ -15,9 +15,14 @@
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.JetpackCompose">
+            android:theme="@style/Theme.JetpackCompose" />
+
+        <activity
+            android:name="com.example.jetpackcompose.ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.JetpackCompose.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
