@@ -1,6 +1,6 @@
 package com.example.jetpackcompose.data.repository
 
-import com.example.jetpackcompose.data.database.AppDatabase
+import com.example.jetpackcompose.data.database.ProductDao
 import com.example.jetpackcompose.data.model.CardAddedItem
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.network.AppService
@@ -16,10 +16,8 @@ interface IProductRepository {
 
 class ProductRepository @Inject constructor(
     private val appService: AppService,
-    private val appDatabase: AppDatabase
+    private val productDao: ProductDao
 ) : IProductRepository {
-
-    private val productDao get() = appDatabase.productDao()
 
     override suspend fun fetchProducts(): List<ProductItem> {
         return appService.fetchProducts().items

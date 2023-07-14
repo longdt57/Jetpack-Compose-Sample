@@ -22,7 +22,7 @@ class GetProductUseCase @Inject constructor(
     }
 
     override fun getLocal(param: Unit): Flow<List<ProductItem>> {
-        return productRepository.getLocalProducts().take(1)
+        return productRepository.getLocalProducts()
     }
 
     private fun saveLocal(items: List<ProductItem>) {
