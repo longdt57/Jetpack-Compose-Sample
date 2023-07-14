@@ -45,7 +45,7 @@ class ShoppingCardActivity : BaseActivity() {
             JetpackComposeTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { ShoppingCardTopAppBar { finish() } },
+                    topBar = { ShoppingCardTopAppBar() },
                 ) { padding ->
                     Surface(modifier = Modifier.padding(padding)) {
                         Column {
@@ -64,11 +64,12 @@ class ShoppingCardActivity : BaseActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ShoppingCardTopAppBar(callback: () -> Unit) {
+private fun ShoppingCardTopAppBar() {
+    val activity = LocalContext.current as Activity
     TopAppBar(
         title = { Text(text = stringResource(R.string.shopping_screen_title)) },
         navigationIcon = {
-            IconButton(onClick = { callback() }) {
+            IconButton(onClick = { activity.finish() }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Shopping Card Btn Back")
             }
         })
@@ -103,11 +104,10 @@ private fun ShoppingCardPreView() {
 @Composable
 @Preview(showBackground = true)
 private fun ShoppingScreenPreview() {
-    val activity = LocalContext.current as Activity
     JetpackComposeTheme {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            topBar = { ShoppingCardTopAppBar { activity.finish() } },
+            topBar = { ShoppingCardTopAppBar() },
         ) { padding ->
             Surface(modifier = Modifier.padding(padding)) {
                 Column {
