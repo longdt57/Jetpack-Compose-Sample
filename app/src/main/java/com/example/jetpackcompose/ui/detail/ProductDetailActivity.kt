@@ -97,7 +97,7 @@ private fun ProductDetailView(item: ProductItem) {
             .padding(horizontal = 16.dp)
     ) {
         Text(text = item.name, fontWeight = FontWeight.Medium)
-        Text(text = item.content, modifier = Modifier.padding(start = 16.dp, top = 16.dp))
+        Text(text = item.content.orEmpty(), modifier = Modifier.padding(start = 16.dp, top = 16.dp))
         Text(text = item.price, modifier = Modifier.padding(top = 16.dp))
     }
 }
