@@ -5,19 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.jetpackcompose.data.model.CardAddedItem
+import com.example.jetpackcompose.data.model.CardItem
 
 @Dao
 interface ProductCardDao {
-    @Query("SELECT * FROM CardAddedItem")
-    fun getAll(): List<CardAddedItem>
+    @Query("SELECT * FROM CardItem")
+    fun getAll(): List<CardItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(cardItem: CardAddedItem)
+    fun insert(cardItem: CardItem)
 
     @Delete
-    fun delete(item: CardAddedItem)
+    fun delete(item: CardItem)
 
-    @Query("DELETE FROM CardAddedItem")
+    @Query("DELETE FROM CardItem")
     fun deleteAll()
 }

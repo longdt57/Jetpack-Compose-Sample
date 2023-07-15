@@ -25,7 +25,7 @@ class ProductRepositoryTest {
 
     @Test
     fun `test clearAndSaveAllProducts`() {
-        val items = DataProvider.FakeListData
+        val items = DataProvider.FakeProductList
         productRepository.clearAndSaveAllProducts(items)
         verify(productDao, times(1)).deleteAll()
         verify(productDao, times(1)).insertAll(items)

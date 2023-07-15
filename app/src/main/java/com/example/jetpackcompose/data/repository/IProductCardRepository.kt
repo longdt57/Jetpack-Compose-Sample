@@ -2,15 +2,15 @@ package com.example.jetpackcompose.data.repository
 
 import com.example.jetpackcompose.data.database.ProductCardDao
 import com.example.jetpackcompose.data.database.ProductDao
-import com.example.jetpackcompose.data.model.CardAddedItem
+import com.example.jetpackcompose.data.model.CardItem
 import com.example.jetpackcompose.data.model.ProductItem
 import javax.inject.Inject
 
 interface IProductCardRepository {
 
     fun getLocalProducts(ids: List<String>): List<ProductItem>
-    fun addItemToCard(item: CardAddedItem)
-    fun getCardAddedItems(): List<CardAddedItem>
+    fun insertCardItem(item: CardItem)
+    fun getAllCardItems(): List<CardItem>
 }
 
 class ProductCardRepository @Inject constructor(
@@ -22,11 +22,11 @@ class ProductCardRepository @Inject constructor(
         return productDao.getItemByIds(ids)
     }
 
-    override fun addItemToCard(item: CardAddedItem) {
+    override fun insertCardItem(item: CardItem) {
         productCardDao.insert(item)
     }
 
-    override fun getCardAddedItems(): List<CardAddedItem> {
+    override fun getAllCardItems(): List<CardItem> {
         return productCardDao.getAll()
     }
 }

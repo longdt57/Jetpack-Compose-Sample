@@ -1,6 +1,6 @@
 package com.example.jetpackcompose.domain
 
-import com.example.jetpackcompose.data.model.CardAddedItem
+import com.example.jetpackcompose.data.model.CardItem
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.repository.IProductCardRepository
 import javax.inject.Inject
@@ -11,11 +11,12 @@ class AddItemToShoppingCardUseCase @Inject constructor(
     private val repository: IProductCardRepository
 ) {
 
-    fun addItemToCard(item: ProductItem): Flow<Unit> = flow {
-        val cardItem = repository.getCardAddedItems()
+    fun addItemToCard(item: ProductItem): Flow<CardItem> = flow {
+        val cardItems = repository.getAllCardItems()
             .firstOrNull { it.itemId == item.name }
-            ?: CardAddedItem(item.name, 0)
-        val addItem = cardItem.copy(count = cardItem.count + 1)
-        emit(repository.addItemToCard(addItem))
+            ?: CardItem(item.name, 0)
+        val addItem = cardItems.copy(count = cardItems.count + 1)
+        repository.insertCardItem(addItem)
+        emit(addItem)
     }
 }

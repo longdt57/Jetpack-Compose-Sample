@@ -42,7 +42,7 @@ class MainViewModelTest {
 
     @Test
     fun `test fetch data success`() = runTest {
-        val data = DataProvider.FakeListData
+        val data = DataProvider.FakeProductList
         whenever(getProductUseCase.fetchRemote(Unit)).thenReturn(flowOf(data))
         whenever(getProductUseCase.getLocal(Unit)).thenReturn(flowOf(data))
         viewModel.refreshData()
@@ -68,8 +68,8 @@ class MainViewModelTest {
 
     @Test
     fun `test observe local data`() = runTest {
-        val data1 = DataProvider.FakeListData
-        val data2 = listOf(DataProvider.FakeItem)
+        val data1 = DataProvider.FakeProductList
+        val data2 = listOf(DataProvider.FakeProductItem)
         whenever(getProductUseCase.getLocal(Unit)).thenReturn(flowOf(data1, data2))
 
         viewModel.items.test {

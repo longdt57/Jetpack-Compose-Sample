@@ -1,10 +1,10 @@
 package com.example.jetpackcompose.ui.ext
 
-import com.example.jetpackcompose.data.model.CardAddedItem
+import com.example.jetpackcompose.data.model.CardItem
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.ui.card.ShoppingItem
 
-fun Pair<List<CardAddedItem>, List<ProductItem>>.toShoppingItems(): List<ShoppingItem> {
+fun Pair<List<CardItem>, List<ProductItem>>.toShoppingItems(): List<ShoppingItem> {
     val cardItems = first
     val productItems = second
     val shoppingItems = productItems.map { item ->

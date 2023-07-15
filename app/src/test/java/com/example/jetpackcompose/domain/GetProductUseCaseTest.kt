@@ -29,7 +29,7 @@ class GetProductUseCaseTest {
 
     @Test
     fun `test fetch product successfully, remote is called`() = runTest {
-        val items = DataProvider.FakeListData
+        val items = DataProvider.FakeProductList
         whenever(productRepository.fetchProducts()).thenReturn(items)
         productUseCase.fetchRemote(Unit)
             .collect {
@@ -42,7 +42,7 @@ class GetProductUseCaseTest {
 
     @Test
     fun `test get local data, local is called`() = runTest {
-        val items = DataProvider.FakeListData
+        val items = DataProvider.FakeProductList
         whenever(productRepository.getLocalProducts()).thenReturn(flowOf(items))
         productUseCase.getLocal(Unit)
             .collect {
