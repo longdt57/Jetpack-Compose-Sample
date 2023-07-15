@@ -48,6 +48,23 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    signingConfigs {
+        prod {
+            storeFile rootProject.file("keystore/sample-prod")
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
+    }
+    buildTypes {
+        release {
+            signingConfigs.prod
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.prod
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 ext {
