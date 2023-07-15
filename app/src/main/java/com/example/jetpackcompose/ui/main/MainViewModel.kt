@@ -56,7 +56,7 @@ class MainViewModel @Inject constructor(
     fun refreshCardNumber() {
         viewModelScope.launch(ioDispatcher) {
             _cardNumber.update {
-                cardUseCase.getCardAddedItemCount()
+                cardUseCase.getCardItemCount()
             }
         }
     }

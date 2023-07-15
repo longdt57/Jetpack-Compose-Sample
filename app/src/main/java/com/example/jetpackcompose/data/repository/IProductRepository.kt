@@ -21,7 +21,7 @@ class ProductRepository @Inject constructor(
 
     override suspend fun fetchProducts(): List<ProductItem> {
         return if (BuildConfig.DEBUG)
-            ProductItemPreviewData.FakeListData
+            ProductItemPreviewData.FakeListData // Todo replace with api
         else
             appService.fetchProducts().items
     }

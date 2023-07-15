@@ -28,7 +28,7 @@ class GetShoppingCardUseCaseTest {
         val expectedCount = cardItems.sumOf { it.count }
 
         whenever(repository.getAllCardItems()).thenReturn(cardItems)
-        val actualCount = useCase.getCardAddedItemCount()
+        val actualCount = useCase.getCardItemCount()
         assertEquals(expectedCount, actualCount)
     }
 
@@ -41,7 +41,7 @@ class GetShoppingCardUseCaseTest {
         whenever(repository.getLocalProducts(ids)).thenReturn(productItems)
 
         val expectedResult = Pair(cardItems, productItems)
-        useCase.getCardAddedItems()
+        useCase.getCardItems()
             .collect {
                 assertEquals(it, expectedResult)
             }

@@ -1,5 +1,6 @@
 package com.example.jetpackcompose.ui.card
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import com.example.jetpackcompose.di.DispatcherModule
 import com.example.jetpackcompose.domain.GetShoppingCardUseCase
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -29,12 +29,13 @@ class ShoppingCardViewModel @Inject constructor(
     val items: StateFlow<List<ShoppingItem>> get() = _items.asStateFlow()
 
     init {
-        loadAddedItem()
+        getCardItems()
     }
 
-    private fun loadAddedItem() {
+    @VisibleForTesting
+    fun getCardItems() {
         viewModelScope.launch {
-            getShoppingCardUseCase.getCardAddedItems()
+            getShoppingCardUseCase.getCardItems()
                 .flowOn(ioDispatcher)
                 .catch { handleError(it) }
                 .map { it.toShoppingItems() }

@@ -84,7 +84,7 @@ class MainViewModelTest {
     @Test
     fun `test get card number`() = runTest {
         val number = 6
-        whenever(cardUseCase.getCardAddedItemCount()).thenReturn(number)
+        whenever(cardUseCase.getCardItemCount()).thenReturn(number)
         viewModel.refreshCardNumber()
         advanceUntilIdle()
 

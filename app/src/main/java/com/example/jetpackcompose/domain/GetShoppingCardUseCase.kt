@@ -6,14 +6,14 @@ import kotlinx.coroutines.flow.flow
 
 class GetShoppingCardUseCase @Inject constructor(private val repository: IProductCardRepository) {
 
-    fun getCardAddedItems() = flow {
+    fun getCardItems() = flow {
         val cardItems = repository.getAllCardItems()
         val cardItemIds = cardItems.map { it.itemId }
         val productItems = repository.getLocalProducts(cardItemIds)
         emit(Pair(cardItems, productItems))
     }
 
-    fun getCardAddedItemCount(): Int {
+    fun getCardItemCount(): Int {
         return repository.getAllCardItems().sumOf { it.count }
     }
 }
