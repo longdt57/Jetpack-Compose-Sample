@@ -2,7 +2,10 @@ package com.example.jetpackcompose.util
 
 import com.example.jetpackcompose.data.model.ProductItem
 
-object ProductItemUtil {
+/**
+ * Data is used for Preview UI only.
+ */
+object ProductItemPreviewData {
 
     val FakeItem = ProductItem(
         name = "First Item", price = "100",
