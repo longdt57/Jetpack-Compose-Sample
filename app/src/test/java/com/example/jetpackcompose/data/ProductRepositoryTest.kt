@@ -4,6 +4,7 @@ import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.data.database.ProductDao
 import com.example.jetpackcompose.data.repository.IProductRepository
 import com.example.jetpackcompose.data.repository.ProductRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,5 +30,11 @@ class ProductRepositoryTest {
         productRepository.clearAndSaveAllProducts(items)
         verify(productDao, times(1)).deleteAll()
         verify(productDao, times(1)).insertAll(items)
+    }
+
+    @Test
+    fun `test get local data, room is called`() {
+        productRepository.getLocalProducts()
+        verify(productDao, times(1)).getAll()
     }
 }

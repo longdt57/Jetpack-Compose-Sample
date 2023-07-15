@@ -1,5 +1,7 @@
 package com.example.jetpackcompose.viewmodel
 
+import app.cash.turbine.test
+import com.example.jetpackcompose.data.network.base.error.getApiError
 import com.example.jetpackcompose.domain.GetShoppingCardUseCase
 import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.helper.MainDispatcherRule
@@ -7,6 +9,7 @@ import com.example.jetpackcompose.ui.card.ShoppingCardViewModel
 import com.example.jetpackcompose.ui.ext.toShoppingItems
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -25,7 +28,7 @@ class ShoppingCardViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
-    private val useCase: GetShoppingCardUseCase  = mock()
+    private val useCase: GetShoppingCardUseCase = mock()
     private lateinit var viewModel: ShoppingCardViewModel
 
     @Before
@@ -34,7 +37,7 @@ class ShoppingCardViewModelTest {
     }
 
     @Test
-    fun `test add to card success`() = runTest {
+    fun `test get card data success`() = runTest {
         val productItems = DataProvider.FakeProductList
         val cardItems = DataProvider.FakeCardList
         val shoppingData = Pair(cardItems, productItems)
@@ -44,5 +47,18 @@ class ShoppingCardViewModelTest {
         viewModel.getCardItems()
         advanceUntilIdle()
         assertEquals(viewModel.items.value, expectedResult)
+    }
+
+    @Test
+    fun `test get card data failed`() = runTest {
+        val error = IllegalStateException("Illegal State")
+        whenever(useCase.getCardItems()).thenReturn(flow { throw error })
+        val expectedResult = error.getApiError().getErrorMessage()
+
+        viewModel.error.test {
+            viewModel.getCardItems()
+            advanceUntilIdle()
+            assertEquals(expectMostRecentItem(), expectedResult)
+        }
     }
 }
