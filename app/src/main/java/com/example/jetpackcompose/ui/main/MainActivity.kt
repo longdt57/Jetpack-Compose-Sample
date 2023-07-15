@@ -123,7 +123,7 @@ private fun ProductItemView(item: ProductItem) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(modifier = Modifier.width(16.dp))
-        Column(modifier = Modifier) {
+        Column(modifier = Modifier.padding(vertical = 8.dp)) {
             Text(text = item.name)
             Text(text = item.price)
         }

@@ -6,6 +6,7 @@ import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.network.AppService
 import com.example.jetpackcompose.util.ProductItemPreviewData
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 interface IProductRepository {
@@ -19,11 +20,13 @@ class ProductRepository @Inject constructor(
     private val productDao: ProductDao
 ) : IProductRepository {
 
+    @SuppressWarnings("MagicNumber")
     override suspend fun fetchProducts(): List<ProductItem> {
-        return if (BuildConfig.DEBUG)
-            ProductItemPreviewData.FakeListData // Todo replace with api
-        else
-            appService.fetchProducts().items
+        // Todo replace with api
+        delay(1000)
+        return ProductItemPreviewData.FakeListData
+
+        // return appService.fetchProducts().items
     }
 
     override fun getLocalProducts(): Flow<List<ProductItem>> {
