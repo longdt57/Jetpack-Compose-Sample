@@ -1,6 +1,8 @@
 package com.example.jetpackcompose.di.repository
 
+import com.example.jetpackcompose.data.repository.IProductCardRepository
 import com.example.jetpackcompose.data.repository.IProductRepository
+import com.example.jetpackcompose.data.repository.ProductCardRepository
 import com.example.jetpackcompose.data.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
@@ -15,5 +17,9 @@ object AppRepositoryModule {
     @Singleton
     @Provides
     fun provideProductRepository(repository: ProductRepository): IProductRepository = repository
+
+    @Singleton
+    @Provides
+    fun provideProductCardRepository(repository: ProductCardRepository): IProductCardRepository = repository
 
 }

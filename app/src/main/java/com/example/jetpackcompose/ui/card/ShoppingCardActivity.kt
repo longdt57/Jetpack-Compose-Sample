@@ -76,7 +76,7 @@ private fun ShoppingCardTopAppBar() {
 }
 
 @Composable
-private fun ShoppingCardView(cardItem: ShoppingCardViewModel.ShoppingProductItem) {
+private fun ShoppingCardView(cardItem: ShoppingItem) {
     val item = cardItem.item
     Row(
         modifier = Modifier
@@ -97,7 +97,7 @@ private fun ShoppingCardView(cardItem: ShoppingCardViewModel.ShoppingProductItem
 @Composable
 @Preview(showBackground = true)
 private fun ShoppingCardPreView() {
-    ShoppingCardView(cardItem = ShoppingCardViewModel.ShoppingProductItem(ProductItemPreviewData.FakeItem, 2))
+    ShoppingCardView(cardItem = ShoppingItem(ProductItemPreviewData.FakeItem, 2))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,7 +112,7 @@ private fun ShoppingScreenPreview() {
             Surface(modifier = Modifier.padding(padding)) {
                 Column {
                     ProductItemPreviewData.FakeListData.take(2)
-                        .map { ShoppingCardViewModel.ShoppingProductItem(it, 2) }
+                        .map { ShoppingItem(it, 2) }
                         .forEach {
                             ShoppingCardView(it)
                             Spacer(modifier = Modifier.padding(vertical = 8.dp))

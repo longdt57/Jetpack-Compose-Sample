@@ -1,10 +1,13 @@
 package com.example.jetpackcompose.domain
 
+import androidx.annotation.VisibleForTesting
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.repository.IProductRepository
 import com.example.jetpackcompose.domain.base.BaseFlowUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.take
 

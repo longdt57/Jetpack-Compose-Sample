@@ -8,7 +8,7 @@ import androidx.compose.runtime.collectAsState
 
 abstract class BaseActivity : ComponentActivity() {
 
-    private val toaster: Toaster by lazy { Toaster(this) }
+    protected val toaster: Toaster by lazy { Toaster(this) }
     protected open val viewModel: BaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

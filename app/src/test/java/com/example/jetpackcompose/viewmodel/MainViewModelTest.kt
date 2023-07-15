@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.network.base.error.getApiError
 import com.example.jetpackcompose.domain.GetProductUseCase
+import com.example.jetpackcompose.domain.GetShoppingCardUseCase
 import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.helper.MainDispatcherRule
 import com.example.jetpackcompose.ui.main.MainViewModel
@@ -31,28 +32,30 @@ class MainViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
     private val getProductUseCase: GetProductUseCase = mock()
+    private val cardUseCase: GetShoppingCardUseCase = mock()
     private lateinit var viewModel: MainViewModel
 
     @Before
     fun init() {
-        viewModel = MainViewModel(getProductUseCase, StandardTestDispatcher())
+        viewModel = MainViewModel(getProductUseCase, cardUseCase, StandardTestDispatcher())
     }
 
     @Test
-    fun `test get data success`() = runTest {
+    fun `test fetch data success`() = runTest {
         val data = DataProvider.FakeListData
-        whenever(getProductUseCase.fetchRemoteFallbackLocal(Unit)).thenReturn(flowOf(data))
+        whenever(getProductUseCase.fetchRemote(Unit)).thenReturn(flowOf(data))
+        whenever(getProductUseCase.getLocal(Unit)).thenReturn(flowOf(data))
         viewModel.refreshData()
         advanceUntilIdle()
 
         assertEquals(viewModel.items.value, data)
-        verify(getProductUseCase, times(1)).fetchRemoteFallbackLocal(Unit)
+        verify(getProductUseCase, times(1)).fetchRemote(Unit)
     }
 
     @Test
-    fun `test get data failed, error is thrown`() = runTest {
+    fun `test fetch data failed, error is thrown`() = runTest {
         val error = DataProvider.getErrorHttp401()
-        whenever(getProductUseCase.fetchRemoteFallbackLocal(Unit)).thenReturn(flow { throw error })
+        whenever(getProductUseCase.fetchRemote(Unit)).thenReturn(flow { throw error })
 
         advanceUntilIdle()
 
@@ -61,5 +64,30 @@ class MainViewModelTest {
             assertEquals(awaitItem(), error.getApiError().getErrorMessage())
             assertEquals(viewModel.items.value, emptyList<ProductItem>())
         }
+    }
+
+    @Test
+    fun `test observe local data`() = runTest {
+        val data1 = DataProvider.FakeListData
+        val data2 = listOf(DataProvider.FakeItem)
+        whenever(getProductUseCase.getLocal(Unit)).thenReturn(flowOf(data1, data2))
+
+        viewModel.items.test {
+            viewModel.observeLocal()
+            skipItems(1)
+            advanceUntilIdle()
+            assertEquals(expectMostRecentItem(), data2)
+        }
+    }
+
+    @SuppressWarnings("MagicNumber")
+    @Test
+    fun `test get card number`() = runTest {
+        val number = 6
+        whenever(cardUseCase.getCardAddedItemCount()).thenReturn(number)
+        viewModel.refreshCardNumber()
+        advanceUntilIdle()
+
+        assertEquals(viewModel.cardNumber.value, number)
     }
 }

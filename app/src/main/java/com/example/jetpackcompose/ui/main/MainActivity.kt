@@ -37,6 +37,7 @@ import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.ui.base.BaseActivity
 import com.example.jetpackcompose.ui.card.ShoppingCardActivity
 import com.example.jetpackcompose.ui.detail.ProductDetailActivity
+import com.example.jetpackcompose.ui.ext.badgeLayout
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
 import com.example.jetpackcompose.util.ProductItemPreviewData
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +57,7 @@ class MainActivity : BaseActivity() {
                         .padding(vertical = 16.dp), color = MaterialTheme.colorScheme.background
                 ) {
                     Column {
-                        CardIconView()
+                        CardIconView(viewModel.cardNumber.collectAsState().value)
                         Spacer(modifier = Modifier.height(24.dp))
                         viewModel.items.collectAsState().value.forEach {
                             ProductItemView(item = it)
@@ -72,24 +73,40 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.refreshData()
+        viewModel.refreshCardNumber()
     }
 }
 
+@SuppressWarnings("LongMethod")
 @Composable
-private fun CardIconView() {
+private fun CardIconView(num: Int) {
     val context = LocalContext.current
-    Row(modifier = Modifier.padding(horizontal = 8.dp)) {
-        Spacer(modifier = Modifier.weight(1f))
+    Box(
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .fillMaxWidth()
+    ) {
         Icon(
             imageVector = Icons.Default.ShoppingCart, contentDescription = "Home Card Icon",
             modifier = Modifier
-                .size(36.dp)
-                .padding(4.dp)
+                .align(Alignment.CenterEnd)
+                .size(48.dp)
                 .clip(CircleShape)
                 .clickable {
                     context.startActivity(Intent(context, ShoppingCardActivity::class.java))
                 }
         )
+        if (num != 0) {
+            Text(
+                text = num.toString(),
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(2.dp)
+                    .background(Color.Red, shape = CircleShape)
+                    .badgeLayout(),
+                color = Color.White,
+            )
+        }
     }
 }
 
@@ -100,9 +117,12 @@ private fun ProductItemView(item: ProductItem) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .clickable {
+                context.startActivity(ProductDetailActivity.getIntent(context, item))
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier) {
             Text(text = item.name)
             Text(text = item.price)
@@ -113,15 +133,20 @@ private fun ProductItemView(item: ProductItem) {
             item.isCommingSoon() -> Color.Blue
             else -> Color.Red
         }
-        Box(modifier = Modifier
-            .size(16.dp)
-            .clip(CircleShape)
-            .background(statusColor))
+        Box(
+            modifier = Modifier
+                .size(16.dp)
+                .clip(CircleShape)
+                .background(statusColor)
+        )
         Spacer(modifier = Modifier.width(8.dp))
         Icon(Icons.Default.ArrowForward, contentDescription = "Icon Forward ${item.name}",
-            modifier = Modifier.clickable {
-                context.startActivity(ProductDetailActivity.getIntent(context, item))
-            })
+            modifier = Modifier
+                .clip(CircleShape)
+                .clickable {
+                    context.startActivity(ProductDetailActivity.getIntent(context, item))
+                })
+        Spacer(modifier = Modifier.width(16.dp))
     }
 }
 
@@ -136,20 +161,20 @@ private fun ProductItemViewPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
-        JetpackComposeTheme {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = 16.dp), color = MaterialTheme.colorScheme.background
-            ) {
-                Column {
-                    CardIconView()
-                    Spacer(modifier = Modifier.height(24.dp))
-                    ProductItemPreviewData.FakeListData.forEach {
-                        ProductItemView(item = it)
-                        Spacer(modifier = Modifier.padding(vertical = 8.dp))
-                    }
+    JetpackComposeTheme {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 16.dp), color = MaterialTheme.colorScheme.background
+        ) {
+            Column {
+                CardIconView(2)
+                Spacer(modifier = Modifier.height(24.dp))
+                ProductItemPreviewData.FakeListData.forEach {
+                    ProductItemView(item = it)
+                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
                 }
             }
         }
+    }
 }

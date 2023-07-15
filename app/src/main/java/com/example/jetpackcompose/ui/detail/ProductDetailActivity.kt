@@ -28,12 +28,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import com.example.jetpackcompose.R
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.ui.base.BaseActivity
+import com.example.jetpackcompose.ui.base.launchCollectLatest
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
 import com.example.jetpackcompose.util.ProductItemPreviewData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductDetailActivity : BaseActivity() {
@@ -42,6 +46,7 @@ class ProductDetailActivity : BaseActivity() {
     override val viewModel: ProductDetailViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
+    @SuppressWarnings("MagicNumber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -55,6 +60,16 @@ class ProductDetailActivity : BaseActivity() {
                     Surface(modifier = Modifier.padding(it)) {
                         ProductDetailView(item = item)
                     }
+                }
+            }
+        }
+
+        viewModel.addSuccess.launchCollectLatest(this) {
+            if (it) {
+                lifecycleScope.launch {
+                    toaster.display("${item.name} is added to card")
+                    delay(1000)
+                    finish()
                 }
             }
         }
