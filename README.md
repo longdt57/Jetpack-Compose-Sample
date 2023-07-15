@@ -15,5 +15,5 @@ This project focuses on Android Jetpack
 - Detekt: Code quality
 
 ## ScreenShots
-- Screenshots: In folder screenshots
+- [Screenshots](https://github.com/longdt57/Jetpack-Sample/tree/main/screenshots)
 - [Sample Video](https://www.youtube.com/shorts/AKgbdqzI1Tc)
