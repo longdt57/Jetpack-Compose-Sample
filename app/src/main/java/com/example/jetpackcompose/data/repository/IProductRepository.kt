@@ -1,6 +1,5 @@
 package com.example.jetpackcompose.data.repository
 
-import com.example.jetpackcompose.BuildConfig
 import com.example.jetpackcompose.data.database.ProductDao
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.network.AppService
@@ -10,7 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 interface IProductRepository {
-    suspend fun fetchProducts(): List<ProductItem>
+    suspend fun fetchProducts(isApiAvailable: Boolean = false): List<ProductItem>
     fun getLocalProducts(): Flow<List<ProductItem>>
     fun clearAndSaveAllProducts(items: List<ProductItem>)
 }
@@ -21,12 +20,14 @@ class ProductRepository @Inject constructor(
 ) : IProductRepository {
 
     @SuppressWarnings("MagicNumber")
-    override suspend fun fetchProducts(): List<ProductItem> {
-        // Todo replace with api
-        delay(1000)
-        return ProductItemPreviewData.FakeListData
-
-        // return appService.fetchProducts().items
+    override suspend fun fetchProducts(isApiAvailable: Boolean): List<ProductItem> {
+        return if (isApiAvailable) {
+            appService.fetchProducts().items
+        } else {
+            // Todo remove this code when api is available
+            delay(1000)
+            ProductItemPreviewData.FakeListData
+        }
     }
 
     override fun getLocalProducts(): Flow<List<ProductItem>> {
