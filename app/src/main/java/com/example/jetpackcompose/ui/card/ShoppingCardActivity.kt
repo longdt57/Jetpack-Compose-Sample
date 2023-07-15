@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.R
 import com.example.jetpackcompose.ui.base.BaseActivity
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
-import com.example.jetpackcompose.util.ProductItemUtil
+import com.example.jetpackcompose.util.ProductItemPreviewData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -97,7 +97,7 @@ private fun ShoppingCardView(cardItem: ShoppingCardViewModel.ShoppingProductItem
 @Composable
 @Preview(showBackground = true)
 private fun ShoppingCardPreView() {
-    ShoppingCardView(cardItem = ShoppingCardViewModel.ShoppingProductItem(ProductItemUtil.FakeItem, 2))
+    ShoppingCardView(cardItem = ShoppingCardViewModel.ShoppingProductItem(ProductItemPreviewData.FakeItem, 2))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -111,7 +111,7 @@ private fun ShoppingScreenPreview() {
         ) { padding ->
             Surface(modifier = Modifier.padding(padding)) {
                 Column {
-                    ProductItemUtil.FakeListData.take(2)
+                    ProductItemPreviewData.FakeListData.take(2)
                         .map { ShoppingCardViewModel.ShoppingProductItem(it, 2) }
                         .forEach {
                             ShoppingCardView(it)

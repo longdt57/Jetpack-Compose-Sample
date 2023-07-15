@@ -1,6 +1,6 @@
 package com.example.jetpackcompose.data
 
-import com.example.jetpackcompose.DataProvider
+import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.data.database.ProductDao
 import com.example.jetpackcompose.data.repository.IProductRepository
 import com.example.jetpackcompose.data.repository.ProductRepository

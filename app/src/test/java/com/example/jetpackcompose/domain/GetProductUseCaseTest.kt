@@ -1,6 +1,6 @@
 package com.example.jetpackcompose.domain
 
-import com.example.jetpackcompose.DataProvider
+import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.data.repository.IProductRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf

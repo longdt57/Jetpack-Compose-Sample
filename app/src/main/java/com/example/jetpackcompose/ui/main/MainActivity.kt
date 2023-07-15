@@ -38,7 +38,7 @@ import com.example.jetpackcompose.ui.base.BaseActivity
 import com.example.jetpackcompose.ui.card.ShoppingCardActivity
 import com.example.jetpackcompose.ui.detail.ProductDetailActivity
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
-import com.example.jetpackcompose.util.ProductItemUtil
+import com.example.jetpackcompose.util.ProductItemPreviewData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -129,7 +129,7 @@ private fun ProductItemView(item: ProductItem) {
 @Composable
 private fun ProductItemViewPreview() {
     JetpackComposeTheme {
-        ProductItemView(ProductItemUtil.FakeItem)
+        ProductItemView(ProductItemPreviewData.FakeItem)
     }
 }
 
@@ -145,7 +145,7 @@ private fun MainScreenPreview() {
                 Column {
                     CardIconView()
                     Spacer(modifier = Modifier.height(24.dp))
-                    ProductItemUtil.FakeListData.forEach {
+                    ProductItemPreviewData.FakeListData.forEach {
                         ProductItemView(item = it)
                         Spacer(modifier = Modifier.padding(vertical = 8.dp))
                     }

@@ -32,7 +32,7 @@ import com.example.jetpackcompose.R
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.ui.base.BaseActivity
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
-import com.example.jetpackcompose.util.ProductItemUtil
+import com.example.jetpackcompose.util.ProductItemPreviewData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -105,7 +105,7 @@ private fun ProductDetailView(item: ProductItem) {
 @Preview(showBackground = true)
 @Composable
 private fun ProductDetailPreView() {
-    ProductDetailView(ProductItemUtil.FakeItem)
+    ProductDetailView(ProductItemPreviewData.FakeItem)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -120,7 +120,7 @@ private fun DetailScreenPreview() {
             floatingActionButtonPosition = FabPosition.Center
         ) {
             Surface(modifier = Modifier.padding(it)) {
-                ProductDetailView(item = ProductItemUtil.FakeItem)
+                ProductDetailView(item = ProductItemPreviewData.FakeItem)
             }
         }
     }
