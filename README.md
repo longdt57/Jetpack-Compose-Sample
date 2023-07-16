@@ -7,12 +7,12 @@ This project focuses on Android Jetpack
 - Jetpack Compose
 - Room
 - Unit Testing
-- MVVM + Domain
+- MVVM + Domain: App Architecture
 - Kotlin Coroutines
 - Hilt
-- Github CI
+- Github CI: Guarantee code style, quality, functioning
 - Bitrise CI/CD: https://app.bitrise.io/app/1bdd25cb-24cd-4ba4-b64e-711367e26905
-- Detekt, Ktlint: Code quality, convention
+- Detekt, Ktlint: Code quality, convention, style
 
 ## ScreenShots
 - [Screenshots](https://github.com/longdt57/Jetpack-Sample/tree/main/screenshots)
