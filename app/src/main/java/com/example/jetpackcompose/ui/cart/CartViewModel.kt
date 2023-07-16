@@ -1,9 +1,9 @@
-package com.example.jetpackcompose.ui.card
+package com.example.jetpackcompose.ui.cart
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import com.example.jetpackcompose.di.DispatcherModule
-import com.example.jetpackcompose.domain.GetShoppingCardUseCase
+import com.example.jetpackcompose.domain.GetCartUseCase
 import com.example.jetpackcompose.ui.base.BaseViewModel
 import com.example.jetpackcompose.ui.ext.toShoppingItems
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShoppingCardViewModel @Inject constructor(
-    private val getShoppingCardUseCase: GetShoppingCardUseCase,
+class CartViewModel @Inject constructor(
+    private val getShoppingCartUseCase: GetCartUseCase,
     @DispatcherModule.IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : BaseViewModel() {
 
@@ -29,13 +29,13 @@ class ShoppingCardViewModel @Inject constructor(
     val items: StateFlow<List<ShoppingItem>> get() = _items.asStateFlow()
 
     init {
-        getCardItems()
+        getCartItems()
     }
 
     @VisibleForTesting
-    fun getCardItems() {
+    fun getCartItems() {
         viewModelScope.launch {
-            getShoppingCardUseCase.getCardItems()
+            getShoppingCartUseCase.invoke()
                 .flowOn(ioDispatcher)
                 .catch { handleError(it) }
                 .map { it.toShoppingItems() }

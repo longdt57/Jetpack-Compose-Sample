@@ -6,6 +6,7 @@ import com.example.jetpackcompose.data.network.AppService
 import com.example.jetpackcompose.data.repository.IProductRepository
 import com.example.jetpackcompose.data.repository.ProductRepository
 import com.example.jetpackcompose.helper.DataProvider
+import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -42,6 +43,16 @@ class ProductRepositoryTest {
     fun `test fetch data but api is not ready, sample data is return`() = runTest {
         productRepository.fetchProducts(false)
         verify(appService, times(0)).fetchProducts()
+    }
+
+    @Test
+    fun `test get item by ids`() {
+        val data = DataProvider.FakeProductList
+        val ids = data.map { it.name }
+        whenever(productDao.getItemByIds(ids)).thenReturn(data)
+
+        val items = productRepository.getLocalProducts(ids = ids)
+        TestCase.assertEquals(items, data)
     }
 
     @Test

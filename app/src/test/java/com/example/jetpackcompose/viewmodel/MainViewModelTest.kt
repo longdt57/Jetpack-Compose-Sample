@@ -3,8 +3,8 @@ package com.example.jetpackcompose.viewmodel
 import app.cash.turbine.test
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.network.base.error.getApiError
+import com.example.jetpackcompose.domain.GetCartNumberUseCase
 import com.example.jetpackcompose.domain.GetProductUseCase
-import com.example.jetpackcompose.domain.GetShoppingCardUseCase
 import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.helper.MainDispatcherRule
 import com.example.jetpackcompose.ui.main.MainViewModel
@@ -32,12 +32,12 @@ class MainViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
     private val getProductUseCase: GetProductUseCase = mock()
-    private val cardUseCase: GetShoppingCardUseCase = mock()
+    private val getCartNumberUseCase: GetCartNumberUseCase = mock()
     private lateinit var viewModel: MainViewModel
 
     @Before
     fun init() {
-        viewModel = MainViewModel(getProductUseCase, cardUseCase, StandardTestDispatcher())
+        viewModel = MainViewModel(getProductUseCase, getCartNumberUseCase, StandardTestDispatcher())
     }
 
     @Test
@@ -82,12 +82,12 @@ class MainViewModelTest {
 
     @SuppressWarnings("MagicNumber")
     @Test
-    fun `test get card number`() = runTest {
+    fun `test get cart number`() = runTest {
         val number = 6
-        whenever(cardUseCase.getCardItemCount()).thenReturn(number)
-        viewModel.refreshCardNumber()
+        whenever(getCartNumberUseCase.invoke()).thenReturn(number)
+        viewModel.refreshCartNumber()
         advanceUntilIdle()
 
-        assertEquals(viewModel.cardNumber.value, number)
+        assertEquals(viewModel.cartNumber.value, number)
     }
 }

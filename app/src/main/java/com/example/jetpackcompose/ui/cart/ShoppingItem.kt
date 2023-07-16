@@ -1,4 +1,4 @@
-package com.example.jetpackcompose.ui.card
+package com.example.jetpackcompose.ui.cart
 
 import com.example.jetpackcompose.data.model.ProductItem
 

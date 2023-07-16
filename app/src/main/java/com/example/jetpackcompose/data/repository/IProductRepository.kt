@@ -10,6 +10,7 @@ import javax.inject.Inject
 interface IProductRepository {
     suspend fun fetchProducts(isApiAvailable: Boolean = false): List<ProductItem>
     fun getLocalProducts(): Flow<List<ProductItem>>
+    fun getLocalProducts(ids: List<String>): List<ProductItem>
     fun clearAndSaveAllProducts(items: List<ProductItem>)
 }
 
@@ -31,6 +32,10 @@ class ProductRepository @Inject constructor(
 
     override fun getLocalProducts(): Flow<List<ProductItem>> {
         return productDao.getAll()
+    }
+
+    override fun getLocalProducts(ids: List<String>): List<ProductItem> {
+        return productDao.getItemByIds(ids)
     }
 
     override fun clearAndSaveAllProducts(items: List<ProductItem>) {

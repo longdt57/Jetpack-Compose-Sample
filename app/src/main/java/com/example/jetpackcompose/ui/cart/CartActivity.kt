@@ -1,4 +1,4 @@
-package com.example.jetpackcompose.ui.card
+package com.example.jetpackcompose.ui.cart
 
 import android.app.Activity
 import android.os.Bundle
@@ -35,9 +35,9 @@ import com.example.jetpackcompose.util.ProductItemPreviewData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ShoppingCardActivity : BaseActivity() {
+class CartActivity : BaseActivity() {
 
-    override val viewModel: ShoppingCardViewModel by viewModels()
+    override val viewModel: CartViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,12 +46,12 @@ class ShoppingCardActivity : BaseActivity() {
             JetpackComposeTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { ShoppingCardTopAppBar() },
+                    topBar = { CartTopAppBar() },
                 ) { padding ->
                     Surface(modifier = Modifier.padding(padding)) {
                         Column {
                             viewModel.items.collectAsState().value.forEach {
-                                ShoppingCardView(it)
+                                CartView(it)
                                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
                             }
                         }
@@ -65,21 +65,21 @@ class ShoppingCardActivity : BaseActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ShoppingCardTopAppBar() {
+private fun CartTopAppBar() {
     val activity = LocalContext.current as Activity
     TopAppBar(
-        title = { Text(text = stringResource(R.string.shopping_screen_title)) },
+        title = { Text(text = stringResource(R.string.cart_screen_title)) },
         navigationIcon = {
             IconButton(onClick = { activity.finish() }) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Shopping Card Btn Back")
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Cart Btn Back")
             }
         },
     )
 }
 
 @Composable
-private fun ShoppingCardView(cardItem: ShoppingItem) {
-    val item = cardItem.item
+private fun CartView(cartItem: ShoppingItem) {
+    val item = cartItem.item
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -96,31 +96,31 @@ private fun ShoppingCardView(cardItem: ShoppingItem) {
         }
         Spacer(modifier = Modifier.weight(1f))
 
-        Text("Count: ${cardItem.count}")
+        Text("Count: ${cartItem.count}")
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-private fun ShoppingCardPreView() {
-    ShoppingCardView(cardItem = ShoppingItem(ProductItemPreviewData.FakeItem, 2))
+private fun CartPreView() {
+    CartView(cartItem = ShoppingItem(ProductItemPreviewData.FakeItem, 2))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview(showBackground = true)
-private fun ShoppingScreenPreview() {
+private fun CartScreenPreview() {
     JetpackComposeTheme {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            topBar = { ShoppingCardTopAppBar() },
+            topBar = { CartTopAppBar() },
         ) { padding ->
             Surface(modifier = Modifier.padding(padding)) {
                 Column {
                     ProductItemPreviewData.FakeListData.take(2)
                         .map { ShoppingItem(it, 2) }
                         .forEach {
-                            ShoppingCardView(it)
+                            CartView(it)
                             Spacer(modifier = Modifier.padding(vertical = 8.dp))
                         }
                 }

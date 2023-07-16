@@ -7,7 +7,7 @@ This project focuses on Android Jetpack
 - Jetpack Compose
 - Room
 - Unit Testing
-- MVVM + Domain (UseCase)
+- MVVM + Domain
 - Kotlin Coroutines
 - Hilt
 - Github CI

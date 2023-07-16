@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.R
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.ui.base.BaseActivity
-import com.example.jetpackcompose.ui.card.ShoppingCardActivity
+import com.example.jetpackcompose.ui.cart.CartActivity
 import com.example.jetpackcompose.ui.detail.ProductDetailActivity
 import com.example.jetpackcompose.ui.ext.badgeLayout
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     Column {
-                        CardIconView(viewModel.cardNumber.collectAsState().value)
+                        CartIconView(viewModel.cartNumber.collectAsState().value)
                         Spacer(modifier = Modifier.height(12.dp))
                         viewModel.items.collectAsState().value.forEach {
                             ProductItemView(item = it)
@@ -77,13 +77,13 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.refreshData()
-        viewModel.refreshCardNumber()
+        viewModel.refreshCartNumber()
     }
 }
 
 @SuppressWarnings("LongMethod")
 @Composable
-private fun CardIconView(num: Int) {
+private fun CartIconView(num: Int) {
     val context = LocalContext.current
     Box(
         modifier = Modifier
@@ -92,13 +92,13 @@ private fun CardIconView(num: Int) {
     ) {
         Icon(
             imageVector = Icons.Default.ShoppingCart,
-            contentDescription = "Home Card Icon",
+            contentDescription = "Home Cart Icon",
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .size(40.dp)
                 .clip(CircleShape)
                 .clickable {
-                    context.startActivity(Intent(context, ShoppingCardActivity::class.java))
+                    context.startActivity(Intent(context, CartActivity::class.java))
                 },
         )
         if (num != 0) {
@@ -183,7 +183,7 @@ private fun MainScreenPreview() {
             color = MaterialTheme.colorScheme.background,
         ) {
             Column {
-                CardIconView(2)
+                CartIconView(2)
                 Spacer(modifier = Modifier.height(24.dp))
                 ProductItemPreviewData.FakeListData.forEach {
                     ProductItemView(item = it)

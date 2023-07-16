@@ -2,10 +2,10 @@ package com.example.jetpackcompose.viewmodel
 
 import app.cash.turbine.test
 import com.example.jetpackcompose.data.network.base.error.getApiError
-import com.example.jetpackcompose.domain.GetShoppingCardUseCase
+import com.example.jetpackcompose.domain.GetCartUseCase
 import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.helper.MainDispatcherRule
-import com.example.jetpackcompose.ui.card.ShoppingCardViewModel
+import com.example.jetpackcompose.ui.cart.CartViewModel
 import com.example.jetpackcompose.ui.ext.toShoppingItems
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,39 +24,39 @@ import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
 @ExperimentalCoroutinesApi
-class ShoppingCardViewModelTest {
+class CartViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
-    private val useCase: GetShoppingCardUseCase = mock()
-    private lateinit var viewModel: ShoppingCardViewModel
+    private val useCase: GetCartUseCase = mock()
+    private lateinit var viewModel: CartViewModel
 
     @Before
     fun init() {
-        viewModel = ShoppingCardViewModel(useCase, StandardTestDispatcher())
+        viewModel = CartViewModel(useCase, StandardTestDispatcher())
     }
 
     @Test
-    fun `test get card data success`() = runTest {
+    fun `test get cart data success`() = runTest {
         val productItems = DataProvider.FakeProductList
-        val cardItems = DataProvider.FakeCardList
-        val shoppingData = Pair(cardItems, productItems)
-        whenever(useCase.getCardItems()).thenReturn(flowOf(shoppingData))
+        val cartItems = DataProvider.FakeCartList
+        val shoppingData = Pair(cartItems, productItems)
+        whenever(useCase.invoke()).thenReturn(flowOf(shoppingData))
         val expectedResult = shoppingData.toShoppingItems()
 
-        viewModel.getCardItems()
+        viewModel.getCartItems()
         advanceUntilIdle()
         assertEquals(viewModel.items.value, expectedResult)
     }
 
     @Test
-    fun `test get card data failed`() = runTest {
+    fun `test get cart data failed`() = runTest {
         val error = IllegalStateException("Illegal State")
-        whenever(useCase.getCardItems()).thenReturn(flow { throw error })
+        whenever(useCase.invoke()).thenReturn(flow { throw error })
         val expectedResult = error.getApiError().getErrorMessage()
 
         viewModel.error.test {
-            viewModel.getCardItems()
+            viewModel.getCartItems()
             advanceUntilIdle()
             assertEquals(expectMostRecentItem(), expectedResult)
         }

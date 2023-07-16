@@ -1,6 +1,6 @@
 package com.example.jetpackcompose.helper
 
-import com.example.jetpackcompose.data.model.CardItem
+import com.example.jetpackcompose.data.model.CartItem
 import com.example.jetpackcompose.data.model.ProductResponse
 import com.example.jetpackcompose.util.GsonUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -44,10 +44,10 @@ object DataProvider {
     val FakeProductList = GsonUtil.fromJson<ProductResponse>(DummyData)?.items.orEmpty()
     val FakeProductItem = FakeProductList.first()
 
-    val FakeCardList = listOf(
-        CardItem("First Item", 3),
-        CardItem("Second Item", 2),
-        CardItem("Third Item", 1),
+    val FakeCartList = listOf(
+        CartItem("First Item", 3),
+        CartItem("Second Item", 2),
+        CartItem("Third Item", 1),
     )
 
     private val errorResponse = """

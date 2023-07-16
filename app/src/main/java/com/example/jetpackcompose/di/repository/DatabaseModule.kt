@@ -3,7 +3,7 @@ package com.example.jetpackcompose.di.repository
 import android.content.Context
 import androidx.room.Room
 import com.example.jetpackcompose.data.database.AppDatabase
-import com.example.jetpackcompose.data.database.ProductCardDao
+import com.example.jetpackcompose.data.database.CartDao
 import com.example.jetpackcompose.data.database.ProductDao
 import dagger.Module
 import dagger.Provides
@@ -34,5 +34,5 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideProductCardDao(database: AppDatabase): ProductCardDao = database.productCardDao()
+    fun provideCartDao(database: AppDatabase): CartDao = database.cartDao()
 }

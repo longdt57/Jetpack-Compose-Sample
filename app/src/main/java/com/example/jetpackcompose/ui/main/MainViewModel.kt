@@ -4,8 +4,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.di.DispatcherModule
+import com.example.jetpackcompose.domain.GetCartNumberUseCase
 import com.example.jetpackcompose.domain.GetProductUseCase
-import com.example.jetpackcompose.domain.GetShoppingCardUseCase
 import com.example.jetpackcompose.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -25,15 +25,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getProductUseCase: GetProductUseCase,
-    private val cardUseCase: GetShoppingCardUseCase,
+    private val getCartNumberUseCase: GetCartNumberUseCase,
     @DispatcherModule.IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : BaseViewModel() {
 
     private val _items = MutableStateFlow<List<ProductItem>>(emptyList())
     val items: StateFlow<List<ProductItem>> get() = _items.asStateFlow()
 
-    private val _cardNumber = MutableStateFlow(0)
-    val cardNumber: StateFlow<Int> get() = _cardNumber.asStateFlow()
+    private val _cartNumber = MutableStateFlow(0)
+    val cartNumber: StateFlow<Int> get() = _cartNumber.asStateFlow()
 
     init {
         observeLocal()
@@ -53,10 +53,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun refreshCardNumber() {
+    fun refreshCartNumber() {
         viewModelScope.launch(ioDispatcher) {
-            _cardNumber.update {
-                cardUseCase.getCardItemCount()
+            _cartNumber.update {
+                getCartNumberUseCase.invoke()
             }
         }
     }
