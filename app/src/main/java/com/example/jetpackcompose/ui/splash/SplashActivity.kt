@@ -17,5 +17,4 @@ class SplashActivity : ComponentActivity() {
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         finish()
     }
-
 }

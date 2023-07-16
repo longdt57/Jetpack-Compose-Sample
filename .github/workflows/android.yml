@@ -23,6 +23,8 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     # Code Quality Check
+    - name: Ktlint
+      run: ./gradlew ktlint
     - name: Detekt
       run: ./gradlew detekt
     # Execute unit tests

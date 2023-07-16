@@ -3,10 +3,9 @@ package com.example.jetpackcompose.data.repository
 import com.example.jetpackcompose.data.database.ProductDao
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.network.AppService
-import com.example.jetpackcompose.util.ProductItemPreviewData
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 interface IProductRepository {
     suspend fun fetchProducts(isApiAvailable: Boolean = false): List<ProductItem>
@@ -16,7 +15,7 @@ interface IProductRepository {
 
 class ProductRepository @Inject constructor(
     private val appService: AppService,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
 ) : IProductRepository {
 
     @SuppressWarnings("MagicNumber")
@@ -26,7 +25,7 @@ class ProductRepository @Inject constructor(
         } else {
             // Todo remove this code when api is available
             delay(1000)
-            ProductItemPreviewData.FakeListData
+            ApiFakeData.getDummyProducts()?.items.orEmpty()
         }
     }
 
@@ -38,5 +37,4 @@ class ProductRepository @Inject constructor(
         productDao.deleteAll()
         productDao.insertAll(items)
     }
-
 }

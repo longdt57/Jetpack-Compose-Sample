@@ -8,7 +8,6 @@ import com.example.jetpackcompose.domain.GetProductUseCase
 import com.example.jetpackcompose.domain.GetShoppingCardUseCase
 import com.example.jetpackcompose.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,12 +20,13 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getProductUseCase: GetProductUseCase,
     private val cardUseCase: GetShoppingCardUseCase,
-    @DispatcherModule.IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    @DispatcherModule.IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : BaseViewModel() {
 
     private val _items = MutableStateFlow<List<ProductItem>>(emptyList())

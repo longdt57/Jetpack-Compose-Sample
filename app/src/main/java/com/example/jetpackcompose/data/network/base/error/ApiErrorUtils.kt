@@ -17,5 +17,5 @@ object ApiErrorUtils {
         return GsonUtil.fromJson<ApiError>(errorBody) ?: getDefaultApiError(throwable)
     }
 
-    private fun getDefaultApiError(throwable: Throwable) = ApiError(description = throwable.message)
+    private fun getDefaultApiError(throwable: Throwable) = ApiError(message = throwable.message)
 }

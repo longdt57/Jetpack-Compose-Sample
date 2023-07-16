@@ -10,5 +10,5 @@ data class CardItem(
     val itemId: String,
 
     @ColumnInfo(name = "count")
-    val count: Int
+    val count: Int,
 )

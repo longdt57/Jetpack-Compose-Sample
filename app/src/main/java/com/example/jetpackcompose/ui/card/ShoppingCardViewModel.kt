@@ -7,7 +7,6 @@ import com.example.jetpackcompose.domain.GetShoppingCardUseCase
 import com.example.jetpackcompose.ui.base.BaseViewModel
 import com.example.jetpackcompose.ui.ext.toShoppingItems
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,11 +17,12 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ShoppingCardViewModel @Inject constructor(
     private val getShoppingCardUseCase: GetShoppingCardUseCase,
-    @DispatcherModule.IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    @DispatcherModule.IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : BaseViewModel() {
 
     private val _items = MutableStateFlow<List<ShoppingItem>>(emptyList())
@@ -44,5 +44,4 @@ class ShoppingCardViewModel @Inject constructor(
                 }
         }
     }
-
 }

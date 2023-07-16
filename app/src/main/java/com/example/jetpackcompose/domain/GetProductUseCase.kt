@@ -3,12 +3,12 @@ package com.example.jetpackcompose.domain
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.repository.IProductRepository
 import com.example.jetpackcompose.domain.base.BaseFlowUseCase
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class GetProductUseCase @Inject constructor(
-    private val productRepository: IProductRepository
+    private val productRepository: IProductRepository,
 ) : BaseFlowUseCase<Unit, List<ProductItem>>() {
 
     override fun fetchRemote(param: Unit): Flow<List<ProductItem>> {

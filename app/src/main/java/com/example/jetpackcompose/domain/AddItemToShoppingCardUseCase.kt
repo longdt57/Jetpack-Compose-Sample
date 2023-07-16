@@ -3,12 +3,12 @@ package com.example.jetpackcompose.domain
 import com.example.jetpackcompose.data.model.CardItem
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.data.repository.IProductCardRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class AddItemToShoppingCardUseCase @Inject constructor(
-    private val repository: IProductCardRepository
+    private val repository: IProductCardRepository,
 ) {
 
     fun addItemToCard(item: ProductItem): Flow<CardItem> = flow {

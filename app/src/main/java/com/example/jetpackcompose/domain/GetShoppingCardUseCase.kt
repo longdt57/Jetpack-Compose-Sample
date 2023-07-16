@@ -1,8 +1,8 @@
 package com.example.jetpackcompose.domain
 
 import com.example.jetpackcompose.data.repository.IProductCardRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class GetShoppingCardUseCase @Inject constructor(private val repository: IProductCardRepository) {
 

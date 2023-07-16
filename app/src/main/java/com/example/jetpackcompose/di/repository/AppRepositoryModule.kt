@@ -21,5 +21,4 @@ object AppRepositoryModule {
     @Singleton
     @Provides
     fun provideProductCardRepository(repository: ProductCardRepository): IProductCardRepository = repository
-
 }

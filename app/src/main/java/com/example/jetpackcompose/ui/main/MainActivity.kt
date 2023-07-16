@@ -31,8 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jetpackcompose.R
 import com.example.jetpackcompose.data.model.ProductItem
 import com.example.jetpackcompose.ui.base.BaseActivity
 import com.example.jetpackcompose.ui.card.ShoppingCardActivity
@@ -54,7 +57,8 @@ class MainActivity : BaseActivity() {
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(vertical = 16.dp), color = MaterialTheme.colorScheme.background
+                        .padding(vertical = 16.dp),
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     Column {
                         CardIconView(viewModel.cardNumber.collectAsState().value)
@@ -84,17 +88,18 @@ private fun CardIconView(num: Int) {
     Box(
         modifier = Modifier
             .padding(horizontal = 8.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         Icon(
-            imageVector = Icons.Default.ShoppingCart, contentDescription = "Home Card Icon",
+            imageVector = Icons.Default.ShoppingCart,
+            contentDescription = "Home Card Icon",
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .size(48.dp)
+                .size(40.dp)
                 .clip(CircleShape)
                 .clickable {
                     context.startActivity(Intent(context, ShoppingCardActivity::class.java))
-                }
+                },
         )
         if (num != 0) {
             Text(
@@ -104,6 +109,8 @@ private fun CardIconView(num: Int) {
                     .padding(2.dp)
                     .background(Color.Red, shape = CircleShape)
                     .badgeLayout(),
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.Center,
                 color = Color.White,
             )
         }
@@ -120,12 +127,16 @@ private fun ProductItemView(item: ProductItem) {
             .clickable {
                 context.startActivity(ProductDetailActivity.getIntent(context, item))
             },
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.padding(vertical = 8.dp)) {
-            Text(text = item.name)
-            Text(text = item.price)
+            Text(text = item.name, style = MaterialTheme.typography.labelLarge)
+            Text(
+                text = stringResource(id = R.string.price_x, item.price.toString()),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 8.dp),
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
         val statusColor = when {
@@ -137,15 +148,18 @@ private fun ProductItemView(item: ProductItem) {
             modifier = Modifier
                 .size(16.dp)
                 .clip(CircleShape)
-                .background(statusColor)
+                .background(statusColor),
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Icon(Icons.Default.ArrowForward, contentDescription = "Icon Forward ${item.name}",
+        Icon(
+            Icons.Default.ArrowForward,
+            contentDescription = "Icon Forward ${item.name}",
             modifier = Modifier
                 .clip(CircleShape)
                 .clickable {
                     context.startActivity(ProductDetailActivity.getIntent(context, item))
-                })
+                },
+        )
         Spacer(modifier = Modifier.width(16.dp))
     }
 }
@@ -165,7 +179,8 @@ private fun MainScreenPreview() {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(vertical = 16.dp), color = MaterialTheme.colorScheme.background
+                .padding(vertical = 16.dp),
+            color = MaterialTheme.colorScheme.background,
         ) {
             Column {
                 CardIconView(2)

@@ -18,8 +18,7 @@ data class ProductItem(
 
     @SerializedName("price")
     @ColumnInfo(name = "price")
-    val price: String,
-
+    val price: Int,
 
     @SerializedName("content")
     @ColumnInfo(name = "content")

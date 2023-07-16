@@ -17,6 +17,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
@@ -55,7 +55,7 @@ class ProductDetailActivity : BaseActivity() {
                     modifier = Modifier.fillMaxSize(),
                     topBar = { ProductDetailTopAppBar() },
                     floatingActionButton = { ProductDetailFloatingActionButton { viewModel.addToCard(item) } },
-                    floatingActionButtonPosition = FabPosition.Center
+                    floatingActionButtonPosition = FabPosition.Center,
                 ) {
                     Surface(modifier = Modifier.padding(it)) {
                         ProductDetailView(item = item)
@@ -93,7 +93,8 @@ private fun ProductDetailTopAppBar() {
             IconButton(onClick = { activity.finish() }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Detail Btn Back")
             }
-        })
+        },
+    )
 }
 
 @Composable
@@ -101,7 +102,8 @@ private fun ProductDetailFloatingActionButton(callback: () -> Unit) {
     ExtendedFloatingActionButton(
         text = { Text(text = stringResource(R.string.detail_screen_btn_add)) },
         icon = {},
-        onClick = { callback() })
+        onClick = { callback() },
+    )
 }
 
 @Composable
@@ -109,11 +111,15 @@ private fun ProductDetailView(item: ProductItem) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
     ) {
-        Text(text = item.name, fontWeight = FontWeight.Medium)
+        Text(text = item.name, style = MaterialTheme.typography.labelLarge)
         Text(text = item.content.orEmpty(), modifier = Modifier.padding(start = 16.dp, top = 16.dp))
-        Text(text = item.price, modifier = Modifier.padding(top = 16.dp))
+        Text(
+            stringResource(id = R.string.price_x, item.price.toString()),
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(top = 16.dp),
+        )
     }
 }
 
@@ -132,7 +138,7 @@ private fun DetailScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             topBar = { ProductDetailTopAppBar() },
             floatingActionButton = { ProductDetailFloatingActionButton { } },
-            floatingActionButtonPosition = FabPosition.Center
+            floatingActionButtonPosition = FabPosition.Center,
         ) {
             Surface(modifier = Modifier.padding(it)) {
                 ProductDetailView(item = ProductItemPreviewData.FakeItem)
