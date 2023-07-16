@@ -37,7 +37,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.jetpackcompose.ui.card.ShoppingCardActivity"
+            android:name="com.example.jetpackcompose.ui.cart.CartActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
     </application>

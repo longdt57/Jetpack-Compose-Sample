@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Jetpack Compose</string>
-    <string name="detail_screen_btn_add">Add to card</string>
+    <string name="detail_screen_btn_add">Add to cart</string>
     <string name="detail_screen_title">Detail</string>
-    <string name="shopping_screen_title">Shopping Card</string>
+    <string name="cart_screen_title">Cart</string>
     <string name="price_x">Price: %s</string>
 </resources>

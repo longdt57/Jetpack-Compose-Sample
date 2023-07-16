@@ -1,9 +1,9 @@
 package com.example.jetpackcompose.viewmodel
 
 import app.cash.turbine.test
-import com.example.jetpackcompose.data.model.CardItem
+import com.example.jetpackcompose.data.model.CartItem
 import com.example.jetpackcompose.data.network.base.error.getApiError
-import com.example.jetpackcompose.domain.AddItemToShoppingCardUseCase
+import com.example.jetpackcompose.domain.AddItemToCartUseCase
 import com.example.jetpackcompose.helper.DataProvider
 import com.example.jetpackcompose.helper.MainDispatcherRule
 import com.example.jetpackcompose.ui.detail.ProductDetailViewModel
@@ -28,7 +28,7 @@ class ProductDetailViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
-    private val addUseCase: AddItemToShoppingCardUseCase = mock()
+    private val addUseCase: AddItemToCartUseCase = mock()
     private lateinit var viewModel: ProductDetailViewModel
 
     @Before
@@ -37,24 +37,24 @@ class ProductDetailViewModelTest {
     }
 
     @Test
-    fun `test add to card success`() = runTest {
+    fun `test add to cart success`() = runTest {
         val productItem = DataProvider.FakeProductItem
-        val cardItem = CardItem(productItem.name, 1)
-        whenever(addUseCase.addItemToCard(productItem)).thenReturn(flowOf(cardItem))
+        val cartItem = CartItem(productItem.name, 1)
+        whenever(addUseCase.invoke(productItem)).thenReturn(flowOf(cartItem))
 
-        viewModel.addToCard(productItem)
+        viewModel.addToCart(productItem)
         advanceUntilIdle()
         assertEquals(viewModel.addSuccess.value, true)
     }
 
     @Test
-    fun `test add to card failed`() = runTest {
+    fun `test add to cart failed`() = runTest {
         val productItem = DataProvider.FakeProductItem
         val error = IllegalStateException("Illegal State")
-        whenever(addUseCase.addItemToCard(productItem)).thenReturn(flow { throw error })
+        whenever(addUseCase.invoke(productItem)).thenReturn(flow { throw error })
 
         viewModel.error.test {
-            viewModel.addToCard(productItem)
+            viewModel.addToCart(productItem)
             assertEquals(awaitItem(), error.getApiError().getErrorMessage())
         }
     }

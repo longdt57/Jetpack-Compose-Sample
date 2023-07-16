@@ -54,7 +54,7 @@ class ProductDetailActivity : BaseActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = { ProductDetailTopAppBar() },
-                    floatingActionButton = { ProductDetailFloatingActionButton { viewModel.addToCard(item) } },
+                    floatingActionButton = { ProductDetailFloatingActionButton { viewModel.addToCart(item) } },
                     floatingActionButtonPosition = FabPosition.Center,
                 ) {
                     Surface(modifier = Modifier.padding(it)) {
@@ -67,7 +67,7 @@ class ProductDetailActivity : BaseActivity() {
         viewModel.addSuccess.launchCollectLatest(this) {
             if (it) {
                 lifecycleScope.launch {
-                    toaster.display("${item.name} is added to card")
+                    toaster.display("${item.name} is added to cart")
                     delay(1000)
                     finish()
                 }
