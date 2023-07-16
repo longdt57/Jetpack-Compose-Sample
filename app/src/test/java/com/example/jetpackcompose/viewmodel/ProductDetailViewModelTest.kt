@@ -53,7 +53,6 @@ class ProductDetailViewModelTest {
         val error = IllegalStateException("Illegal State")
         whenever(addUseCase.addItemToCard(productItem)).thenReturn(flow { throw error })
 
-
         viewModel.error.test {
             viewModel.addToCard(productItem)
             assertEquals(awaitItem(), error.getApiError().getErrorMessage())

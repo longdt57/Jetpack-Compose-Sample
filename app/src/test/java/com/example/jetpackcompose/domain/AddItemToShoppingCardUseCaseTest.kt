@@ -3,6 +3,7 @@ package com.example.jetpackcompose.domain
 import com.example.jetpackcompose.data.repository.IProductCardRepository
 import com.example.jetpackcompose.helper.DataProvider
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -12,6 +13,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class AddItemToShoppingCardUseCaseTest {
 
     private lateinit var useCase: AddItemToShoppingCardUseCase

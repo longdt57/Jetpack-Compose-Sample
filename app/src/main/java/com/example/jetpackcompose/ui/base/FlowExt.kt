@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 fun <T> Flow<T>.launchCollectLatest(
     lifecycleOwner: LifecycleOwner,
     state: Lifecycle.State = Lifecycle.State.CREATED,
-    collector: (T) -> Unit
+    collector: (T) -> Unit,
 ): Job {
     return lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.lifecycle.repeatOnLifecycle(state) {

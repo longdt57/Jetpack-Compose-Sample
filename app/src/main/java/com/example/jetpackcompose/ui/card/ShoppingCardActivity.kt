@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -72,7 +73,8 @@ private fun ShoppingCardTopAppBar() {
             IconButton(onClick = { activity.finish() }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Shopping Card Btn Back")
             }
-        })
+        },
+    )
 }
 
 @Composable
@@ -82,11 +84,15 @@ private fun ShoppingCardView(cardItem: ShoppingItem) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier) {
-            Text(text = item.name)
-            Text(text = item.price)
+            Text(text = item.name, style = MaterialTheme.typography.labelLarge)
+            Text(
+                stringResource(id = R.string.price_x, item.price.toString()),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(start = 8.dp),
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
 

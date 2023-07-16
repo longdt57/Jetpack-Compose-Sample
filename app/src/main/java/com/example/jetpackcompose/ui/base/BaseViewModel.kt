@@ -16,7 +16,8 @@ open class BaseViewModel : ViewModel() {
     val loading: StateFlow<Boolean> get() = _loading.asStateFlow()
 
     protected val _error = MutableSharedFlow<String>(
-        extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
     val error: SharedFlow<String>
         get() = _error.asSharedFlow()

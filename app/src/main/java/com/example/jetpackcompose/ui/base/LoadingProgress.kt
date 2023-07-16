@@ -15,12 +15,12 @@ fun LoadingProgress(isLoading: Boolean) {
     if (isLoading) {
         Dialog(
             onDismissRequest = {},
-            DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+            DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false),
         ) {
             Box(
-                contentAlignment= Alignment.Center,
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(100.dp),
             ) {
                 CircularProgressIndicator()
             }

@@ -21,7 +21,8 @@ class DatabaseModule {
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            AppDatabase::class.java, "database-compose-sample"
+            AppDatabase::class.java,
+            "database-compose-sample",
         )
             .fallbackToDestructiveMigration()
             .build()

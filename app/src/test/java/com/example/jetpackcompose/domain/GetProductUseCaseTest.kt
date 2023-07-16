@@ -3,6 +3,7 @@ package com.example.jetpackcompose.domain
 import com.example.jetpackcompose.data.repository.IProductRepository
 import com.example.jetpackcompose.helper.DataProvider
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
@@ -17,6 +18,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetProductUseCaseTest {
 
     private lateinit var productUseCase: GetProductUseCase

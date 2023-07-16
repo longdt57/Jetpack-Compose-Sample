@@ -12,7 +12,7 @@ This project focuses on Android Jetpack
 - Hilt
 - Github CI
 - Bitrise CI/CD: https://app.bitrise.io/app/1bdd25cb-24cd-4ba4-b64e-711367e26905
-- Detekt: Code quality
+- Detekt, Ktlint: Code quality, convention
 
 ## ScreenShots
 - [Screenshots](https://github.com/longdt57/Jetpack-Sample/tree/main/screenshots)

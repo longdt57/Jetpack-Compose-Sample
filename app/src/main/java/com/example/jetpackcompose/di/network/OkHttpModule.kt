@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Qualifier
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -21,7 +21,7 @@ internal object OkHttpModule {
     @Provides
     @AppIdInterceptorOkHttpClient
     fun provideOkHttpClientWithInterceptor(
-        networkEnvironment: NetworkEnvironment
+        networkEnvironment: NetworkEnvironment,
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addLogging(networkEnvironment)
@@ -30,9 +30,11 @@ internal object OkHttpModule {
 
     private fun OkHttpClient.Builder.addLogging(config: NetworkEnvironment): OkHttpClient.Builder {
         if (config.isDebug) {
-            addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                },
+            )
         }
         return this
     }

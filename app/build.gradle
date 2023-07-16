@@ -7,6 +7,8 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+apply from: "../ktlint.gradle"
+
 android {
     namespace 'com.example.jetpackcompose'
     compileSdk 33
@@ -75,12 +77,12 @@ ext {
     retrofit_version = '2.9.0'
 
     room_version = '2.4.2'
-    hilt_version = '2.42'
+    hilt_version = '2.44'
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     implementation 'androidx.activity:activity-compose:1.5.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -102,7 +104,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofit_version")
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp:4.10.0"
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
 
     // Room Database

@@ -15,7 +15,7 @@ interface IProductCardRepository {
 
 class ProductCardRepository @Inject constructor(
     private val productDao: ProductDao,
-    private val productCardDao: ProductCardDao
+    private val productCardDao: ProductCardDao,
 ) : IProductCardRepository {
 
     override fun getLocalProducts(ids: List<String>): List<ProductItem> {
