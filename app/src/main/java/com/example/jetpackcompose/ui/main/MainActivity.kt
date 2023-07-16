@@ -62,7 +62,7 @@ class MainActivity : BaseActivity() {
                 ) {
                     Column {
                         CardIconView(viewModel.cardNumber.collectAsState().value)
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(12.dp))
                         viewModel.items.collectAsState().value.forEach {
                             ProductItemView(item = it)
                             Spacer(modifier = Modifier.padding(vertical = 8.dp))
@@ -134,7 +134,7 @@ private fun ProductItemView(item: ProductItem) {
             Text(text = item.name, style = MaterialTheme.typography.labelLarge)
             Text(
                 text = stringResource(id = R.string.price_x, item.price.toString()),
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 8.dp),
             )
         }

@@ -90,7 +90,8 @@ private fun ShoppingCardView(cardItem: ShoppingItem) {
             Text(text = item.name, style = MaterialTheme.typography.labelLarge)
             Text(
                 stringResource(id = R.string.price_x, item.price.toString()),
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(start = 8.dp),
             )
         }
         Spacer(modifier = Modifier.weight(1f))

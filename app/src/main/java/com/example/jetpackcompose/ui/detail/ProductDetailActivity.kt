@@ -117,7 +117,7 @@ private fun ProductDetailView(item: ProductItem) {
         Text(text = item.content.orEmpty(), modifier = Modifier.padding(start = 16.dp, top = 16.dp))
         Text(
             stringResource(id = R.string.price_x, item.price.toString()),
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(top = 16.dp),
         )
     }
