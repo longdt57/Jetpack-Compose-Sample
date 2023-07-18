@@ -1,7 +1,7 @@
 # Jetpack Sample
 - Github: https://github.com/longdt57/Jetpack-Sample
 - Build:
-    - [APK 1.0](https://app.bitrise.io/app/1bdd25cb-24cd-4ba4-b64e-711367e26905/build/9417c52f-d8cc-404e-ab68-86379af1b2ae/artifact/b9ee1e8e8ffaf4ea/p/a31f25a7f5220aa98114efd31b328164)
+    - [APK 1.0](https://app.bitrise.io/app/1bdd25cb-24cd-4ba4-b64e-711367e26905/build/f8d7546d-a2a3-4f1c-873e-f4d66dbe919f/artifact/ca69d6fff466bc29/p/5268b2cc59a219fd953e742f6d1e72eb)
 
 ## Tech
 - Jetpack Compose
